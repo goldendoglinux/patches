@@ -1,0 +1,13 @@
+#!/bin/bash
+# GoldenDog Linux Patch Service
+# Author: Alexia Michelle <alexia@goldendoglinux.org>
+# To disable automatic patching, in your goldendog installation do:
+# sudo systemctl disable patch-service.service (NOT RECOMMENDED)
+# Alternatively, you can change the variable from "true" to "false" in /usr/local/bin/patch-service
+logdate=$(date +%Y-%m-%d)
+###################################################################################################
+
+
+# 25-05-2024: No patches available. Everything is good. We write the current state to the local system log
+
+echo -e "${logdate} System integrity [ OK ]\nNo patches applied." > /var/log/goldendog-security.log
