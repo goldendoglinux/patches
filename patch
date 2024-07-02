@@ -49,6 +49,9 @@ else
     echo "File $file_path does not exist."
 fi
 
+# Delete remaining desktop file to installer
+rm $HOME/Desktop/install-debian.desktop
+
 # Commented just now. Only useful for scripts that require sudo.
 echo -e "Fixes Applied $ok"
 echo -e "Complete.\n\nYou need to restart your computer for Plasma to apply all changes."
