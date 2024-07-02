@@ -19,6 +19,15 @@ ls -d */
 echo "Fix applied [ OK ]"
 fi
 
+current_user=$(logname)
+file_path="$HOME/.local/share/user-places.xbel"
+if [[ -f "$file_path" ]]; then
+    sed -i "s/pupper/$current_user/g" "$file_path"
+    cp "$file_path" "$file_path.bak"
+    echo "Replaced 'pupper' with '$current_user' in $file_path."
+else
+    echo "File $file_path does not exist."
+fi
 
-
-echo -e "${logdate} System integrity [ OK ]\nNo patches applied." > /var/log/goldendog-security.log
+# Commented just now. Only useful for scripts that require sudo.
+#echo -e "${logdate} System integrity [ OK ]\nNo patches applied." > /var/log/goldendog-security.log
