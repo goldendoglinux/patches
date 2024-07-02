@@ -5,6 +5,10 @@
 # sudo systemctl disable patch-service.service (NOT RECOMMENDED)
 # Alternatively, you can change the variable from "true" to "false" in /usr/local/bin/patch-service
 logdate=$(date +%Y-%m-%d)
+green=$(tput setaf 2)
+reset=$(tput sgr0)
+ok="${green}[${reset} OK ${green}]${reset}"
+
 ###################################################################################################
 #!/bin/bash
 if [ "$(whoami)" != "$(logname)" ]; then
@@ -16,7 +20,7 @@ cd
 mkdir -p Downloads && mkdir -p Documents && mkdir -p Games && mkdir -p Music && mkdir -p Pictures && mkdir -p Videos
 echo "Created the following dirs:"
 ls -d */
-echo "Fix applied [ OK ]"
+echo -e "Fix applied $ok"
 fi
 
 current_user=$(logname)
@@ -24,7 +28,7 @@ file_path="$HOME/.local/share/user-places.xbel"
 if [[ -f "$file_path" ]]; then
     sed -i "s/pupper/$current_user/g" "$file_path"
     cp "$file_path" "$file_path.bak"
-    echo "Replaced 'pupper' with '$current_user' in $file_path. [ OK ]"
+   echo "Replaced 'pupper' with '$current_user' in $file_path. $ok"
 
 
 content='XDG_DESKTOP_DIR="$HOME/Desktop"
@@ -39,7 +43,7 @@ XDG_VIDEOS_DIR="$HOME/Videos"'
 echo "$content" > ~/.config/user-dirs.dirs
 
 # Optional: Print a message indicating success
-echo "Updated ~/.config/user-dirs.dirs with the specified directories. [ OK ]"
+echo "Updated ~/.config/user-dirs.dirs with the specified directories. $ok"
 
 
 else
@@ -47,19 +51,7 @@ else
 fi
 
 # Commented just now. Only useful for scripts that require sudo.
-echo "Plasma needs to be rehashed for changes to take effect. Proceed? [Y/N]"
-read x
-
-case $x in
-YySs)
-kquitapp5 plasmashell && kstart5 plasmashell
-;;
-Nn)
-echo "Aborted"
-exit 1
-;;
-*)
-exit 1
-;;
-echo -e "${logdate} System integrity [ OK ]\nNo patches applied." > /var/log/goldendog-security.log
-esac
+echo "Plasma needs to be rehashed for changes to take effect. Proceed?"
+sudo kquitapp5 plasmashell && kstart5 plasmashell
+echo -e "Fixes Applied $ok"
+echo -e "Complete."
