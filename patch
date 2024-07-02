@@ -24,7 +24,7 @@ file_path="$HOME/.local/share/user-places.xbel"
 if [[ -f "$file_path" ]]; then
     sed -i "s/pupper/$current_user/g" "$file_path"
     cp "$file_path" "$file_path.bak"
-    echo "Replaced 'pupper' with '$current_user' in $file_path."
+    echo "Replaced 'pupper' with '$current_user' in $file_path. [ OK ]"
 
 
 content='XDG_DESKTOP_DIR="$HOME/Desktop"
@@ -39,7 +39,7 @@ XDG_VIDEOS_DIR="$HOME/Videos"'
 echo "$content" > ~/.config/user-dirs.dirs
 
 # Optional: Print a message indicating success
-echo "Updated ~/.config/user-dirs.dirs with the specified directories."
+echo "Updated ~/.config/user-dirs.dirs with the specified directories. [ OK ]"
 
 
 else
@@ -47,4 +47,19 @@ else
 fi
 
 # Commented just now. Only useful for scripts that require sudo.
-#echo -e "${logdate} System integrity [ OK ]\nNo patches applied." > /var/log/goldendog-security.log
+echo "Plasma needs to be rehashed for changes to take effect. Proceed? [Y/N]"
+read x
+
+case $x in
+YySs)
+kquitapp5 plasmashell && kstart5 plasmashell
+;;
+Nn)
+echo "Aborted"
+exit 1
+;;
+*)
+exit 1
+;;
+echo -e "${logdate} System integrity [ OK ]\nNo patches applied." > /var/log/goldendog-security.log
+esac
