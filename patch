@@ -6,8 +6,19 @@
 # Alternatively, you can change the variable from "true" to "false" in /usr/local/bin/patch-service
 logdate=$(date +%Y-%m-%d)
 ###################################################################################################
+#!/bin/bash
+if [ "$(whoami)" != "$(logname)" ]; then
+echo "This fix must be ran as user $(logname)"
+echo "Aborting"
+exit 1
+else
+cd
+mkdir -p Downloads && mkdir -p Documents && mkdir -p Games && mkdir -p Music && mkdir -p Pictures && mkdir -p Videos
+echo "Created the following dirs:"
+ls -d */
+echo "Fix applied [ OK ]"
+fi
 
 
-# 25-05-2024: No patches available. Everything is good. We write the current state to the local system log
 
 echo -e "${logdate} System integrity [ OK ]\nNo patches applied." > /var/log/goldendog-security.log
