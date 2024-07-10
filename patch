@@ -15,43 +15,5 @@ echo "This fix must be ran as user $(logname)"
 echo "Aborting"
 exit 1
 else
-cd
-mkdir -p Downloads && mkdir -p Documents && mkdir -p Games && mkdir -p Music && mkdir -p Pictures && mkdir -p Videos
-echo "Created the following dirs:"
-ls -d */
-echo -e "Fix applied $ok"
+echo "This patch was for 1.6.14. It is now obsolete. There's nothing to patch. Update to 1.6.19"
 fi
-
-current_user=$(logname)
-file_path="$HOME/.local/share/user-places.xbel"
-if [[ -f "$file_path" ]]; then
-    sed -i "s/pupper/$current_user/g" "$file_path"
-    cp "$file_path" "$file_path.bak"
-   echo "Replaced 'pupper' with '$current_user' in $file_path. $ok"
-
-
-content='XDG_DESKTOP_DIR="$HOME/Desktop"
-XDG_DOWNLOAD_DIR="$HOME/"
-XDG_TEMPLATES_DIR="$HOME/Templates"
-XDG_PUBLICSHARE_DIR="$HOME/Public"
-XDG_DOCUMENTS_DIR="$HOME/Documents"
-XDG_MUSIC_DIR="$HOME/Music"
-XDG_PICTURES_DIR="$HOME/Pictures"
-XDG_VIDEOS_DIR="$HOME/Videos"'
-
-echo "$content" > ~/.config/user-dirs.dirs
-
-# Optional: Print a message indicating success
-echo "Updated ~/.config/user-dirs.dirs with the specified directories. $ok"
-
-
-else
-    echo "File $file_path does not exist."
-fi
-
-# Delete remaining desktop file to installer
-rm $HOME/Desktop/install-debian.desktop
-
-# Commented just now. Only useful for scripts that require sudo.
-echo -e "Fixes Applied $ok"
-echo -e "Complete.\n\nYou need to restart your computer for Plasma to apply all changes."
