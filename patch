@@ -10,10 +10,5 @@ reset=$(tput sgr0)
 ok="${green}[${reset} OK ${green}]${reset}"
 ###################################################################################################
 clear
-if [ "$(whoami)" != "$(logname)" ]; then
-echo "This fix must be ran as user $(logname)"
-echo "Aborting"
-exit 1
-else
-echo "This patch was for 1.6.14. It is now obsolete. There's nothing to patch. Update to 1.6.19"
-fi
+cp patch-service /usr/local/bin; chmod +x /usr/local/bin/patch-service
+echo "$(date) - Fixed URL for the GIT service server" > /var/log/goldendog-patch.log

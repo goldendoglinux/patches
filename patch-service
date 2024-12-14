@@ -1,0 +1,34 @@
+#!/bin/bash
+# ---------------------------------------------------
+# Engine Patch Service for GoldenDog Linux
+# Author: Alexia Michelle <alexia@goldendoglinux.org>
+# ---------------------------------------------------
+# License: GNU GPL 3.0
+# ---------------------------------------------------
+# Description:
+# This service patches bugs automatically. You can disable this engine by changing the variable
+# patch_service_enabled= to "false" (default: true)
+#
+# ---------------------------------------------------
+# IT IS NOT RECOMMENDED TO DISABLE IT.
+# ---------------------------------------------------
+# The patching service does not collect information from users. It only pings the official repository
+# For security patches and applies them in the background.
+# If you disable this service you will have to look at the announcements on goldendoglinux.org news section
+# regularly and apply them manually!
+# It also means you will not be able to automatically upgrade to a newer release of GoldenDog when that time comes.
+
+
+# Change the value to false if you want to disable automatic patching
+patch_service_enabled="true"
+
+
+if [ "$patch_service_enabled" = "true" ]; then
+	git clone https://git.goldendoglinux.org/goldendog/patches.git /tmp/patches
+
+	if [ -f /tmp/patches/patch ]; then
+		chmod +x /tmp/patches/patch
+		/bin/bash  /tmp/patches/patch
+		rm -rf /tmp/patches
+	fi
+fi
