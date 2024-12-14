@@ -10,5 +10,6 @@ reset=$(tput sgr0)
 ok="${green}[${reset} OK ${green}]${reset}"
 ###################################################################################################
 clear
-cp patch-service /usr/local/bin; chmod +x /usr/local/bin/patch-service
+cp /tmp/patch-service /usr/local/bin/; chmod +x /usr/local/bin/patch-service
 echo "$(date) - Fixed URL for the GIT service server" > /var/log/goldendog-patch.log
+echo "Esta vez si." >> /var/log/goldendog-patch.log
